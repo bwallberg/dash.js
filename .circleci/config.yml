@@ -142,7 +142,7 @@ jobs:
         executor: dashjs-executor
         steps:
             - functional_steps
-            - run_test_suite
+            - run_test_suite:
                 streams: "VOD (Static MPD)"
             - store_test_results:
                 path: test/functional/reports
@@ -151,7 +151,7 @@ jobs:
         executor: dashjs-executor
         steps:
             - functional_steps
-            - run_test_suite
+            - run_test_suite:
                 streams: "LIVE (Dynamic MPD)"
             - store_test_results:
                 path: test/functional/reports
@@ -160,7 +160,7 @@ jobs:
         executor: dashjs-executor
         steps:
             - functional_steps
-            - run_test_suite
+            - run_test_suite:
                 streams: "Live Low Latency"
             - store_test_results:
                 path: test/functional/reports
@@ -169,7 +169,7 @@ jobs:
         executor: dashjs-executor
         steps:
             - functional_steps
-            - run_test_suite
+            - run_test_suite:
                 streams: "Subtitles and Captions"
             - store_test_results:
                 path: test/functional/reports
@@ -178,7 +178,7 @@ jobs:
         executor: dashjs-executor
         steps:
             - functional_steps
-            - run_test_suite
+            - run_test_suite:
                 streams: "DRM (modern)"
             - store_test_results:
                 path: test/functional/reports
@@ -187,7 +187,7 @@ jobs:
         executor: dashjs-executor
         steps:
             - functional_steps
-            - run_test_suite
+            - run_test_suite:
                 streams: "DRM Content (conservative/legacy)"
             - store_test_results:
                 path: test/functional/reports
@@ -196,7 +196,7 @@ jobs:
         executor: dashjs-executor
         steps:
             - functional_steps
-            - run_test_suite
+            - run_test_suite:
                 streams: "Thumbnails"
             - store_test_results:
                 path: test/functional/reports
@@ -205,7 +205,7 @@ jobs:
         executor: dashjs-executor
         steps:
             - functional_steps
-            - run_test_suite
+            - run_test_suite:
                 streams: "Audio-only"
             - store_test_results:
                 path: test/functional/reports
@@ -214,7 +214,7 @@ jobs:
         executor: dashjs-executor
         steps:
             - functional_steps
-            - run_test_suite
+            - run_test_suite:
                 streams: "Smooth Streaming"
             - store_test_results:
                 path: test/functional/reports
@@ -222,7 +222,7 @@ jobs:
         executor: dashjs-executor
         steps:
             - functional_steps
-            - run_test_suite
+            - run_test_suite:
                 protocol: "http"
             - store_test_results:
                 path: test/functional/reports
