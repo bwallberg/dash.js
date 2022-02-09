@@ -52,6 +52,29 @@ commands:
                 command: |
                     npm run build
                     npm run test
+    functional_steps:
+        steps:
+            - functional_precondition
+            - checkout
+            - dependencies_setup
+            - build_unit_test_steps
+            - functional_test_setup
+
+    run_test_suite:
+        parameters:
+            browser:
+                default: "chrome"
+                type: string
+            protocol:
+                default: "https"
+                type: string
+            streams:
+                default: "VOD (Static MPD)"
+                type: string
+        steps:
+            -run: 
+                name: Run functional tests (<<parameters.browser>> / <<parameters.protocol>>) <<parameters.streams>>
+                command: node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=<<parameters.browser>> --protocol=<<parameters.protocol>> --streams="<<parameters.streams>>"
 
 jobs:
     build-and-unit-test:
@@ -116,100 +139,16 @@ jobs:
     functional-tests-without-DRM:
         executor: dashjs-executor
         steps:
-            - functional_precondition
-            - checkout
-            - dependencies_setup
-            - build_unit_test_steps
-            - functional_test_setup
-            - run:
-                name: Run functional tests (edge / https) VOD (Static MPD)
-                command:
-                    node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=edge --protocol=https --streams="VOD (Static MPD)"
-            - run:
-                name: Run functional tests (edge / https) LIVE (Dynamic MPD)
-                when: always # run tests even if some previous tests failed
-                command:
-                    node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=edge --protocol=https --streams="LIVE (Dynamic MPD)"
-            - run:
-                name: Run functional tests (edge / https) Live Low Latency
-                when: always # run tests even if some previous tests failed
-                command:
-                    node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=edge --protocol=https --streams="Live Low Latency"
-            - run:
-                name: Run functional tests (edge / https) Subtitles and Captions
-                when: always # run tests even if some previous tests failed
-                command:
-                    node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=edge --protocol=https --streams="Subtitles and Captions"
-            - run:
-                name: Run functional tests (edge / https) Thumbnails
-                when: always # run tests even if some previous tests failed
-                command:
-                    node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=edge --protocol=https --streams="Thumbnails"
-            - run:
-                name: Run functional tests (edge / https) Audio-only
-                when: always # run tests even if some previous tests failed
-                command:
-                    node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=edge --protocol=https --streams="Audio-only"
-            - run:
-                name: Run functional tests (edge / https) Smooth Streaming
-                when: always # run tests even if some previous tests failed
-                command:
-                    node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=edge --protocol=https --streams="Smooth Streaming"
+            - functional_steps
+            - run_test_suite
             - store_test_results:
                 path: test/functional/reports
                 
-    functional-tests-with-DRM:
-        executor: dashjs-executor
-        steps:
-            - functional_precondition
-            - checkout
-            - dependencies_setup
-            - build_unit_test_steps
-            - functional_test_setup
-            - run:
-                name: Run functional tests (edge / https) DRM (modern)
-                when: always # run tests even if some previous tests failed
-                command:
-                    node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=edge --protocol=https --streams="DRM (modern)"
-            - run:
-                name: Run functional tests (edge / https) DRM Content (conservative/legacy)
-                when: always # run tests even if some previous tests failed
-                command:
-                    node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=edge --protocol=https --streams="DRM Content (conservative/legacy)"
-            - store_test_results:
-                path: test/functional/reports
-
-    functional-tests-only-http:
-        executor: dashjs-executor
-        steps:
-            - functional_precondition
-            - checkout
-            - dependencies_setup
-            - build_unit_test_steps
-            - functional_test_setup
-            - run:
-                name: Run functional tests (edge / http) All
-                when: always # run tests even if some previous tests failed
-                command:
-                    node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=edge --protocol=http
-            - store_test_results:
-                path: test/functional/reports
-
 workflows:
     version: 2
     commit-workflow:
         jobs:
             - functional-tests-without-DRM:  # run unit tests on virtually merged feature branch
-                  filters:
-                      branches:
-                          only:
-                              - functional-tests-vinay
-            - functional-tests-with-DRM:  # run unit tests on virtually merged feature branch
-                  filters:
-                      branches:
-                          only:
-                              - functional-tests-vinay
-            - functional-tests-only-http:  # run unit tests on virtually merged feature branch
                   filters:
                       branches:
                           only:
