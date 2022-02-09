@@ -73,9 +73,10 @@ commands:
                 default: "all"
                 type: string
         steps:
-            -run: 
+            - run:
                 name: Run functional tests (<<parameters.browser>> / <<parameters.protocol>>) <<parameters.streams>>
-                command: node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=<<parameters.browser>> --protocol=<<parameters.protocol>> --streams="<<parameters.streams>>"
+                command:
+                    node test/functional/runTests.js --selenium=remote --reporters=junit --app=remote --browsers=<<parameters.browser>> --protocol=<<parameters.protocol>> --streams="<<parameters.streams>>"
 
 jobs:
     build-and-unit-test:
