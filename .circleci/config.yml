@@ -232,9 +232,54 @@ workflows:
     version: 2
     commit-workflow:
         jobs:
-            - functional-tests-without-DRM:  # run unit tests on virtually merged feature branch
+            - functional-tests-VOD_Static_MPD:  # run unit tests on virtually merged feature branch
                   filters:
                       branches:
                           only:
                               - functional-tests-vinay
 
+            - functional-tests-LIVE_Dynamic_MPD:  # run unit tests on virtually merged feature branch
+                  filters:
+                      branches:
+                          only:
+                              - functional-tests-vinay
+            - functional-tests-Live_Low_Latency:  # run unit tests on virtually merged feature branch
+                  filters:
+                      branches:
+                          only:
+                              - functional-tests-vinay
+            - functional-tests-Subtitle_and_Captions:  # run unit tests on virtually merged feature branch
+                  filters:
+                      branches:
+                          only:
+                              - functional-tests-vinay
+            - functional-tests-DRM_modern:  # run unit tests on virtually merged feature branch
+                  filters:
+                      branches:
+                          only:
+                              - functional-tests-vinay
+            - functional-tests-DRM_Content_conservative_legacy:  # run unit tests on virtually merged feature branch
+                  filters:
+                      branches:
+                          only:
+                              - functional-tests-vinay
+            - functional-tests-Thumbnails:  # run unit tests on virtually merged feature branch
+                  filters:
+                      branches:
+                          only:
+                              - functional-tests-vinay
+            - functional-tests-Audio-only:  # run unit tests on virtually merged feature branch
+                  filters:
+                      branches:
+                          only:
+                              - functional-tests-vinay
+            - functional-tests-Smooth_Streaming:  # run unit tests on virtually merged feature branch
+                  filters:
+                      branches:
+                          only:
+                              - functional-tests-vinay
+            - functional-tests-only-http:  # run unit tests on virtually merged feature branch
+                  filters:
+                      branches:
+                          only:
+                              - functional-tests-vinay
