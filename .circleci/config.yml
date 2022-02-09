@@ -152,7 +152,7 @@ jobs:
         steps:
             - functional_steps
             - run_test_suite
-                streams: "LIVE (Dynamic MPD)"
+                streams:"LIVE (Dynamic MPD)"
             - store_test_results:
                 path: test/functional/reports
 
@@ -161,7 +161,7 @@ jobs:
         steps:
             - functional_steps
             - run_test_suite
-                streams: "Live Low Latency"
+                streams:"Live Low Latency"
             - store_test_results:
                 path: test/functional/reports
 
@@ -170,7 +170,7 @@ jobs:
         steps:
             - functional_steps
             - run_test_suite
-                streams: "Subtitles and Captions"
+                streams:"Subtitles and Captions"
             - store_test_results:
                 path: test/functional/reports
 
@@ -179,7 +179,7 @@ jobs:
         steps:
             - functional_steps
             - run_test_suite
-                streams: "DRM (modern)"
+                streams:"DRM (modern)"
             - store_test_results:
                 path: test/functional/reports
                 
@@ -188,7 +188,7 @@ jobs:
         steps:
             - functional_steps
             - run_test_suite
-                streams: "DRM Content (conservative/legacy)"
+                streams:"DRM Content (conservative/legacy)"
             - store_test_results:
                 path: test/functional/reports
 
@@ -197,7 +197,7 @@ jobs:
         steps:
             - functional_steps
             - run_test_suite
-                streams: "Thumbnails"
+                streams:"Thumbnails"
             - store_test_results:
                 path: test/functional/reports
 
@@ -206,7 +206,7 @@ jobs:
         steps:
             - functional_steps
             - run_test_suite
-                streams: "Audio-only"
+                streams:"Audio-only"
             - store_test_results:
                 path: test/functional/reports
 
@@ -215,7 +215,7 @@ jobs:
         steps:
             - functional_steps
             - run_test_suite
-                streams: "Smooth Streaming"
+                streams:"Smooth Streaming"
             - store_test_results:
                 path: test/functional/reports
     functional-tests-only-http:
@@ -223,7 +223,7 @@ jobs:
         steps:
             - functional_steps
             - run_test_suite
-                protocol: "http"
+                protocol:"http"
             - store_test_results:
                 path: test/functional/reports
 
