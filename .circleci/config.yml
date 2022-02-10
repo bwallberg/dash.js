@@ -177,7 +177,7 @@ jobs:
                 streams: Subtitles and Captions
             - run_test_suite:
                 streams: Thumbnails
-             - run_test_suite:
+            - run_test_suite:
                 streams: Audio-only
             - run_test_suite:
                 streams: Smooth Streaming
