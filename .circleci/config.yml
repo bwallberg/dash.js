@@ -151,19 +151,12 @@ jobs:
             - store_test_results:
                 path: test/functional/reports
 
-    functional-tests-DRM_modern:
+    functional-tests-DRM:
         executor: dashjs-executor
         steps:
             - functional_steps
             - run_test_suite:
                 streams: DRM (modern)
-            - store_test_results:
-                path: test/functional/reports
-                
-    functional-tests-DRM_Content_conservative_legacy:
-        executor: dashjs-executor
-        steps:
-            - functional_steps
             - run_test_suite:
                 streams: DRM Content (conservative/legacy)
             - store_test_results:
@@ -205,12 +198,7 @@ workflows:
                           only:
                               - functional-tests-vinay
 
-            - functional-tests-DRM_modern:  # run unit tests on virtually merged feature branch
-                  filters:
-                      branches:
-                          only:
-                              - functional-tests-vinay
-            - functional-tests-DRM_Content_conservative_legacy:  # run unit tests on virtually merged feature branch
+            - functional-tests-DRM:  # run unit tests on virtually merged feature branch
                   filters:
                       branches:
                           only:
