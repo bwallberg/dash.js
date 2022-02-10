@@ -138,39 +138,16 @@ jobs:
             - store_test_results:
                 path: test/functional/reports
 
-    functional-tests-VOD_Static_MPD:
+    functional-tests-VOD_LIVE:
         executor: dashjs-executor
         steps:
             - functional_steps
             - run_test_suite:
                 streams: VOD (Static MPD)
-            - store_test_results:
-                path: test/functional/reports
-
-    functional-tests-LIVE_Dynamic_MPD:
-        executor: dashjs-executor
-        steps:
-            - functional_steps
             - run_test_suite:
                 streams: LIVE (Dynamic MPD)
-            - store_test_results:
-                path: test/functional/reports
-
-    functional-tests-Live_Low_Latency:
-        executor: dashjs-executor
-        steps:
-            - functional_steps
             - run_test_suite:
                 streams: Live Low Latency
-            - store_test_results:
-                path: test/functional/reports
-
-    functional-tests-Subtitle_and_Captions:
-        executor: dashjs-executor
-        steps:
-            - functional_steps
-            - run_test_suite:
-                streams: Subtitles and Captions
             - store_test_results:
                 path: test/functional/reports
 
@@ -192,32 +169,22 @@ jobs:
             - store_test_results:
                 path: test/functional/reports
 
-    functional-tests-Thumbnails:
+    functional-tests-Subtitles_Thumbnails_Audio_Smooth:
         executor: dashjs-executor
         steps:
             - functional_steps
+            - run_test_suite:
+                streams: Subtitles and Captions
             - run_test_suite:
                 streams: Thumbnails
-            - store_test_results:
-                path: test/functional/reports
-
-    functional-tests-Audio-only:
-        executor: dashjs-executor
-        steps:
-            - functional_steps
-            - run_test_suite:
+             - run_test_suite:
                 streams: Audio-only
-            - store_test_results:
-                path: test/functional/reports
-
-    functional-tests-Smooth_Streaming:
-        executor: dashjs-executor
-        steps:
-            - functional_steps
             - run_test_suite:
                 streams: Smooth Streaming
+            
             - store_test_results:
                 path: test/functional/reports
+
     functional-tests-only-http:
         executor: dashjs-executor
         steps:
@@ -232,27 +199,12 @@ workflows:
     version: 2
     commit-workflow:
         jobs:
-            - functional-tests-VOD_Static_MPD:  # run unit tests on virtually merged feature branch
+            - functional-tests-VOD_LIV:  # run unit tests on virtually merged feature branch
                   filters:
                       branches:
                           only:
                               - functional-tests-vinay
 
-            - functional-tests-LIVE_Dynamic_MPD:  # run unit tests on virtually merged feature branch
-                  filters:
-                      branches:
-                          only:
-                              - functional-tests-vinay
-            - functional-tests-Live_Low_Latency:  # run unit tests on virtually merged feature branch
-                  filters:
-                      branches:
-                          only:
-                              - functional-tests-vinay
-            - functional-tests-Subtitle_and_Captions:  # run unit tests on virtually merged feature branch
-                  filters:
-                      branches:
-                          only:
-                              - functional-tests-vinay
             - functional-tests-DRM_modern:  # run unit tests on virtually merged feature branch
                   filters:
                       branches:
@@ -263,17 +215,7 @@ workflows:
                       branches:
                           only:
                               - functional-tests-vinay
-            - functional-tests-Thumbnails:  # run unit tests on virtually merged feature branch
-                  filters:
-                      branches:
-                          only:
-                              - functional-tests-vinay
-            - functional-tests-Audio-only:  # run unit tests on virtually merged feature branch
-                  filters:
-                      branches:
-                          only:
-                              - functional-tests-vinay
-            - functional-tests-Smooth_Streaming:  # run unit tests on virtually merged feature branch
+            - functional-tests-Subtitles_Thumbnails_Audio_Smooth:  # run unit tests on virtually merged feature branch
                   filters:
                       branches:
                           only:
