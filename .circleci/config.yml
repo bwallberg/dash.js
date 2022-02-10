@@ -199,7 +199,7 @@ workflows:
     version: 2
     commit-workflow:
         jobs:
-            - functional-tests-VOD_LIV:  # run unit tests on virtually merged feature branch
+            - functional-tests-VOD_LIVE:  # run unit tests on virtually merged feature branch
                   filters:
                       branches:
                           only:
