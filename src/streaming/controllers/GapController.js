@@ -310,6 +310,8 @@ function GapController() {
      * @private
      */
     function _jumpGap(currentTime, playbackStalled = false) {
+        const enableStallSeek = settings.get().streaming.gaps.enableStallSeek; 
+        const stallSeek = settings.get().streaming.gaps.stallSeek;
         const smallGapLimit = settings.get().streaming.gaps.smallGapLimit;
         const jumpLargeGaps = settings.get().streaming.gaps.jumpLargeGaps;
         const ranges = videoModel.getBufferRange();
@@ -335,10 +337,17 @@ function GapController() {
         if (isNaN(seekToPosition) && playbackStalled && isFinite(timeToStreamEnd) && !isNaN(timeToStreamEnd) && timeToStreamEnd < smallGapLimit) {
             seekToPosition = parseFloat(playbackController.getStreamEndTime().toFixed(5));
             jumpToStreamEnd = true;
-        } else if(isNaN(seekToPosition) && playbackStalled) {
-            logger.warn(`Jumping 100ms to break stall`);
-            seekToPosition = currentTime + 0.1;
+        } else if(enableStallSeek & isNaN(seekToPosition) && playbackStalled) {
+            if (stallSeek === 0) {
+                logger.warn(`Toggle play pause to break stall`);
+                videoModel.pause();
+                videoModel.play();
+            } else {
+                logger.warn(`Jumping ${stallSeek}s to break stall`);
+                seekToPosition = currentTime + stallSeek;
+            }
         }
+
 
         if (seekToPosition > 0 && lastGapJumpPosition !== seekToPosition && seekToPosition > currentTime && !jumpTimeoutHandler) {
             const timeUntilGapEnd = seekToPosition - currentTime;

@@ -802,6 +802,8 @@ function Settings() {
                 smallGapLimit: 1.5,
                 threshold: 0.3,
                 enableSeekFix: true,
+                enableStallSeek: false,
+                stallSeek: 0.1,
                 enableLoopFix: false,
                 loopFixMargin: 0.25
             },
